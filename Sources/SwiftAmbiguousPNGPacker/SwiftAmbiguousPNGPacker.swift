@@ -75,6 +75,8 @@ private extension CGImage {
 
 public struct SwiftAmbiguousPNGPacker {
     
+    public static let shared = SwiftAmbiguousPNGPacker()
+    
     private static let pngMagic: [UInt8] = [
         0x89, 0x50, 0x4e, 0x47, 0xd, 0xa, 0x1a, 0xa,
     ]
@@ -85,6 +87,7 @@ public struct SwiftAmbiguousPNGPacker {
         case cgImageSourceCopyProperties(_ url: URL)
         case cgImageCreate(_ url: URL)
         case badFilterByte(_ offset: Int)
+        case malformedDatagram
     }
     
     private func applyFilter(_ imageData: Data, width: Int) -> Data {
@@ -236,6 +239,9 @@ public struct SwiftAmbiguousPNGPacker {
         while ypos < height {
             var found = false
             var pieceheight: Int = 1
+            guard height - ypos >= 2 else {
+                throw Error.malformedDatagram
+            }
             for _ in 2..<height - ypos {  // TODO: binary search
                 pieceheight += 1
                 let start = targetSize * ypos
