@@ -2,11 +2,12 @@ import XCTest
 @testable import SwiftAmbiguousPNGPacker
 
 final class SwiftAmbiguousPNGPackerTests: XCTestCase {
-    func testExample() throws {
+
+    func testFixtures() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
-        print(Bundle.module.bundleURL)
+
         let appleImageURL = Bundle.module.url(forResource: "Fixtures/mac_hello_240p", withExtension: "png")!
         let otherImageURL = Bundle.module.url(forResource: "Fixtures/ibm_pc_240p", withExtension: "png")!
         let desiredOutputURL = Bundle.module.url(forResource: "Fixtures/mac_vs_ibm_output", withExtension: "png")!

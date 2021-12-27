@@ -44,7 +44,7 @@ private extension CGImage {
         ) else {
             fatalError()
         }
-        
+
         context.draw(
             self, in:
                 CGRect(
@@ -54,7 +54,7 @@ private extension CGImage {
                     height: height
                 ).aspectFit(in: CGRect(origin: .zero, size: contextSize))
         )
-        
+
         let rgbaData = Data(
             bytesNoCopy: rawData,
             count: dataSize,
@@ -87,7 +87,6 @@ public struct SwiftAmbiguousPNGPacker {
         case cgImageSourceCopyProperties(_ url: URL)
         case cgImageCreate(_ url: URL)
         case badFilterByte(_ offset: Int)
-        case malformedDatagram
     }
     
     private func applyFilter(_ imageData: Data, width: Int) -> Data {
@@ -240,7 +239,7 @@ public struct SwiftAmbiguousPNGPacker {
             var found = false
             var pieceheight: Int = 1
             guard height - ypos >= 2 else {
-                throw Error.malformedDatagram
+                break
             }
             for _ in 2..<height - ypos {  // TODO: binary search
                 pieceheight += 1
