@@ -1,3 +1,3 @@
 # SwiftAmbiguousPNGPacker
 
-A description of this package.
+第二代幻彩坦克引擎。
